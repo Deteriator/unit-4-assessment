@@ -33,30 +33,40 @@ function SavingsAccount(name){
     return `$${num} withdrawn`;
   };
 }
-function Phone(phoneNumber){
-    this.phoneNumber = phoneNumber;
-    this.contacts = [];
-    this.addContact = function(contact) {
-    if(!contact.hasOwnProperty('name')||!contact.hasOwnProperty('phoneNumber')||contact.phoneNumber.length > 10||contact.phoneNumber.length < 10){
+function Phone (phoneNum){
+  this.contacts = [];
+  this.addContact = function(contact){
+    if(!contact.hasOwnProperty('name') || !contact.hasOwnProperty('phoneNumber')){
+      return 'Invalid';
+    }else if (contact.phoneNumber.length < 10){
       return 'Invalid';
     }
     this.contacts.push(contact);
     return `${contact.name} added.`;
-    };
-    this.removeContact = function(name){
-      const list = this.contacts;
-      list.forEach(item =>{ 
-        if(item.hasOwnProperty(name)){
-          list.splice(list.indexOf(item),1);
-          return `${name} removed.`;
-        }
-      });
-    };
-    this.call = function(identity){
-      if(this.contacts.hasOwnProperty(identity)){
-        return `"Calling ${identity}..."`;
+  };
+  this.removeContact = function(name){
+    let foundContact = this.contacts.find((contact) => contact.name === name);
+      if (foundContact){
+        let indexofCon = this.contacts.indexOf(foundContact);
+        this.contacts.splice(indexofCon, 1);
+        return `${name} removed.`;
       }
-      return `Invalid`;
+      return 'Contact not found.';
+    };
+    this.call = function(search){
+      let foundContact = this.contacts.find((contact)=> contact.name === search || contact.phoneNumber === search);
+      if (foundContact){
+        let indexofCon = this.contacts.indexOf(foundContact);
+        let name = this.contacts[indexofCon].name;
+        return `Calling ${name}...`;
+      }else if(!foundContact){
+        if(search.match(/\d/g) && (search.length === 10)){
+          return `Calling ${search}`;
+        }else if(search.match(/\d/g) && search.length < 10){
+          return `Invalid`;
+        }
+        return 'Contact not found.';
+      }
     };
 }
 
