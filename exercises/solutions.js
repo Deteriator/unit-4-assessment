@@ -140,4 +140,4 @@ module.exports = {
    GraduateStudent,
    Professor,
    Doctor
-}
+};

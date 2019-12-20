@@ -61,7 +61,7 @@ test('Question 4', () => {
 test('Question 5', () => {
   const person = new solutions.Person();
   const student = new solutions.Student();
-  const gradStudent = new solutions.Student();
+  const graduateStudent = new solutions.GraduateStudent();
   const doctor = new solutions.Doctor();
   const professor = new solutions.Professor();
   expect(student instanceof solutions.Person).toBe(true);
